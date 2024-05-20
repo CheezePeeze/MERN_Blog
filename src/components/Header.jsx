@@ -3,7 +3,7 @@ import { images } from "../constants";
 
 const navItemsInfo = [
 	{ name: "Home" },
-	{ name: "Aeticles" },
+	{ name: "Articles" },
 	{ name: "Pages" },
 	{ name: "Pricing" },
 	{ name: "FAQ" },
