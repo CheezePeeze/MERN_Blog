@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import { images } from "../constants";
-
+import { AiOutlineMenu, AiOutlineClose } from "react-icons/ai";
 const navItemsInfo = [
 	{ name: "Home" },
 	{ name: "Articles" },
@@ -22,20 +22,43 @@ const NavItem = ({ name }) => {
 	);
 };
 const Header = () => {
+	const [navIsVisible, setNavIsVisible] = useState(false);
+
+	const navVisibilityHandler = () => {
+		setNavIsVisible((currState) => {
+			return !currState;
+		});
+	};
+
 	return (
 		<div>
 			<section>
 				<header className="container mx-auto px-5 flex justify-between py-4 items-center">
 					<div>
-						<img src={images.Logo} alt="logo " />
+						<img className="w-16" src={images.Logo} alt="logo " />
 					</div>
-					<div className="flex gap-x-9 items-center">
-						<ul className="flex gap-x-5 font-semibold">
-							{navItemsInfo.map((item) => {
-								return (
-									<NavItem key={item.name} name={item.name} />
-								);
-							})}
+					<div className="lg:hidden z-50">
+						{navIsVisible ? (
+							<AiOutlineClose
+								className="w-6 h-6"
+								onClick={navVisibilityHandler}
+							/>
+						) : (
+							<AiOutlineMenu
+								className="w-6 h-6"
+								onClick={navVisibilityHandler}
+							/>
+						)}
+					</div>
+					<div
+						className={`${
+							navIsVisible ? "right-0" : "-right-full"
+						} transition-all duration-300 mt-[56px] lg:mt-0 bg-dark-hard lg:bg-transparent z-[49] flex flex-col w-full lg:w-auto justify-center lg:justify-end lg:flex-row fixed top-0 bottom-0 lg:static gap-x-9 items-center`}
+					>
+						<ul className="flex flex-col lg:flex-row gap-x-2 font-semibold">
+							{navItemsInfo.map((item) => (
+								<NavItem key={item.name} name={item.name} />
+							))}
 						</ul>
 						<button className="border-2 border-blue-500 px-6 py-2 rounded-full text-blue-500 font-semibold hover:bg-blue-500 hover:text-white transition-all duration-300">
 							Sign in
